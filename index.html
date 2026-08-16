@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>Intercompany Operation Management</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        /* ===== HERO BANNER ===== */
+        .hero {
+            background: linear-gradient(135deg, #1a6b3c 0%, #0d4a2a 60%, #072d19 100%);
+            padding: 50px 40px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 250px; height: 250px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px; left: -40px;
+            width: 300px; height: 300px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 50%;
+        }
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 36px;
+            flex-wrap: wrap;
+        }
+        .hero-image-wrap {
+            background: white;
+            border-radius: 20px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 4px rgba(255,255,255,0.15);
+            transform: perspective(800px) rotateY(-5deg);
+            transition: transform 0.4s;
+        }
+        .hero-image-wrap:hover {
+            transform: perspective(800px) rotateY(0deg) scale(1.03);
+        }
+        .hero-image-wrap img {
+            width: 240px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 12px;
+            display: block;
+        }
+        .hero-text {
+            text-align: left;
+            color: white;
+        }
+        .hero-text .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: #a8f0c6;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+        .hero-text h1 {
+            font-size: 34px;
+            font-weight: 800;
+            margin: 0 0 10px;
+            line-height: 1.2;
+            color: #fff;
+        }
+        .hero-text h1 span {
+            color: #5effa0;
+        }
+        .hero-text p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.75);
+            margin: 0 0 22px;
+            max-width: 380px;
+            line-height: 1.6;
+        }
+        .hero-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .hero-pill {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: #c8ffe0;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 13px;
+            border-radius: 20px;
+        }
+
+        /* ===== CONTENT AREA ===== */
+        .content {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a6b3c;
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, #1a6b3c22, transparent);
+            border-radius: 2px;
+        }
+
+        /* ===== FEATURE CARDS ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 18px;
+        }
+        .feature-card {
+            background: white;
+            border-radius: 14px;
+            padding: 22px 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            border-left: 4px solid #1a6b3c;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(26,107,60,0.15);
+        }
+        .feature-icon {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+        .feature-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a3a28;
+            margin: 0 0 6px;
+        }
+        .feature-card p {
+            font-size: 13px;
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* ===== WORKFLOW STEPS ===== */
+        .workflow {
+            display: flex;
+            gap: 0;
+            margin: 10px 0;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+        .step {
+            flex: 1;
+            min-width: 110px;
+            text-align: center;
+            position: relative;
+        }
+        .step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -8px;
+            top: 16px;
+            font-size: 18px;
+            color: #1a6b3c;
+            font-weight: 700;
+        }
+        .step-dot {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #1a6b3c, #2d9960);
+            border-radius: 50%;
+            color: white;
+            font-size: 14px;
+            font-weight: 800;
+            line-height: 36px;
+            margin: 0 auto 8px;
+            box-shadow: 0 4px 12px rgba(26,107,60,0.35);
+        }
+        .step p {
+            font-size: 11px;
+            color: #555;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #1a3a28;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+        }
+        .footer strong { color: #5effa0; }
+    </style>
+</head>
+<body>
+
+<!-- HERO SECTION with the image prominently displayed -->
+<div class="hero">
+    <div class="hero-inner">
+        <div class="hero-image-wrap">
+            <img src="banner.jpg" alt="Intercompany Operation" />
+        </div>
+        <div class="hero-text">
+            <div class="badge">✦ Odoo 18 Module</div>
+            <h1>Intercompany<br><span>Operation</span> Management</h1>
+            <p>إدارة العمليات بين الشركات — مبيعات، مشتريات، مدفوعات ومرتجعات في عملية واحدة متكاملة</p>
+            <div class="hero-pills">
+                <span class="hero-pill">🏢 Multi-Company</span>
+                <span class="hero-pill">💳 Payments</span>
+                <span class="hero-pill">↩ Returns</span>
+                <span class="hero-pill">📊 Dashboard</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+
+    <div class="section-title">✨ المميزات الرئيسية</div>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🏢</div>
+            <h3>Multi-Company Operation</h3>
+            <p>إنشاء عملية واحدة تغطي شركات متعددة (بيع / شراء / دفع) تلقائياً</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📦</div>
+            <h3>Auto Orders & Pickings</h3>
+            <p>إنشاء أوامر البيع والشراء والتحريك تلقائياً لكل شركة</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">💰</div>
+            <h3>Payment Distribution</h3>
+            <p>توزيع المدفوعات بالمبلغ أو النسبة مع إنشاء الفواتير تلقائياً</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">↩️</div>
+            <h3>Intercompany Returns</h3>
+            <p>مرتجعات بين الشركات مع دورة موافقة كاملة ومعالج الإرجاع</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Real-time Dashboard</h3>
+            <p>لوحة تحكم حية مع مؤشرات KPI ورسوم بيانية شهرية</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔗</div>
+            <h3>Smart Buttons</h3>
+            <p>أزرار ذكية تربط جميع المستندات المرتبطة بنقرة واحدة</p>
+        </div>
+    </div>
+
+    <div class="section-title">🔄 دورة حياة المرتجع</div>
+    <div class="workflow">
+        <div class="step"><div class="step-dot">1</div><p>Draft</p></div>
+        <div class="step"><div class="step-dot">2</div><p>To Approve</p></div>
+        <div class="step"><div class="step-dot">3</div><p>Approved</p></div>
+        <div class="step"><div class="step-dot">4</div><p>Confirmed</p></div>
+        <div class="step"><div class="step-dot">5</div><p>Returned</p></div>
+        <div class="step"><div class="step-dot">6</div><p>Done</p></div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <strong>Intercompany Operation Management</strong> · Version 18.0.1.8.0 · License LGPL-3
+</div>
+
+</body>
+</html>
